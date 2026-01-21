@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="d-flex justify-between align-center mb-3">
+    <h1>Dashboard</h1>
+    <div>
+        <a href="{% url 'attendance_mark' %}" class="btn btn-primary">Mark Attendance</a>
+        <a href="{% url 'employee_add' %}" class="btn btn-success" style="margin-left: 0.5rem;">Add Employee</a>
+    </div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-title">Total Employees</div>
+        <div class="stat-value">{{ total_employees }}</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-title">Present Today</div>
+        <div class="stat-value">{{ total_present_today }}</div>
+    </div>
+    <!-- Placeholder for more stats -->
+    <div class="stat-card">
+        <div class="stat-title">Departments</div>
+        <div class="stat-value">5</div>
+    </div>
+</div>
+
+<div class="card" style="margin-top: 2rem;">
+    <div class="card-header">
+        <h3 class="card-title">Quick Actions</h3>
+    </div>
+    <p>Manage your organization effectively.</p>
+    <div style="display: flex; gap: 1rem;">
+        <a href="{% url 'employee_list' %}" class="btn btn-primary btn-sm">View All Employees</a>
+        <a href="{% url 'attendance_list' %}" class="btn btn-primary btn-sm">View Attendance Logs</a>
+    </div>
+</div>
+{% endblock %}

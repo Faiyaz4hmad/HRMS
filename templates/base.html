@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Ethara AI | HRMS{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-header"
+            style="flex-direction: column; align-items: flex-start; height: auto; padding: 1.5rem;">
+            <img src="{% static 'images/logo.png' %}" alt="Ethara AI Logo"
+                style="height: 50px; width: auto; margin-bottom: 1rem;">
+            <div
+                style="font-size: 1.55rem; font-weight: 700; color: var(--accent-color); letter-spacing: 0.05em; text-transform: uppercase;">
+                HRMS portal
+            </div>
+        </div>
+        <div class="sidebar-nav">
+            <a href="{% url 'dashboard' %}"
+                class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                <i class="fas fa-th-large"></i> Dashboard
+            </a>
+            <a href="{% url 'employee_list' %}" class="nav-link {% if 'employee' in request.path %}active{% endif %}">
+                <i class="fas fa-users"></i> Employees
+            </a>
+            <a href="{% url 'attendance_list' %}"
+                class="nav-link {% if 'attendance' in request.path %}active{% endif %}">
+                <i class="fas fa-calendar-check"></i> Attendance
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-wrapper">
+        <!-- Top Header -->
+        <header class="top-header">
+            <div class="header-title">
+                {% block header_title %}Overview{% endblock %}
+            </div>
+            <!-- Optional: User Profile / Settings placeholder -->
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <span style="font-size: 0.9rem; color: var(--text-secondary);">Admin User</span>
+                <div
+                    style="width: 35px; height: 35px; background: var(--accent-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </header>
+
+        <div class="content-container">
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {% if message.tags == 'success' %}
+                <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>
+                {% endif %}
+                {% if message.tags == 'error' or message.tags == 'danger' %}
+                <i class="fas fa-exclamation-circle" style="margin-right: 0.5rem;"></i>
+                {% endif %}
+                {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer class="text-center" style="color: var(--text-light); font-size: 0.8rem; margin-top: auto;">
+            &copy; {% now "Y" %} Ethara AI. All rights reserved.
+        </footer>
+    </div>
+
+</body>
+
+</html>
